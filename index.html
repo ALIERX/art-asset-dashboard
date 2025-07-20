@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art Asset Score™ Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      color: #2a2a2a;
+    }
+    select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    canvas {
+      margin-top: 1rem;
+      max-width: 100%;
+    }
+    .chart-container {
+      margin-bottom: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Art Asset Score™ Dashboard</h1>
+    <label for="artSelect">Выберите произведения для сравнения:</label><br>
+    <select id="artSelect" multiple>
+      <option value="Rubens" selected>Rubens – Младенец Иисус и Иоанн</option>
+      <option value="Caravaggio">Caravaggio – Мальчик с корзиной фруктов</option>
+      <option value="Rembrandt">Rembrandt – Старик в красной мантии</option>
+    </select>
+
+    <div class="chart-container">
+      <h2>📊 Индексы оценки (Radar)</h2>
+      <canvas id="radarChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h2>📈 Сценарии будущей стоимости (Line)</h2>
+      <canvas id="lineChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h2>💶 Сравнение стоимости (Bar)</h2>
+      <canvas id="barChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    const artworks = {
+      'Rubens': {
+        name: 'Rubens – Младенец Иисус и Иоанн',
+        scores: [18, 76, 52, 88, 91, 85, 59, 31, 68, 41],
+        values: { optimistic: 2700000, base: 2358720, critical: 1200000 }
+      },
+      'Caravaggio': {
+        name: 'Caravaggio – Мальчик с корзиной фруктов',
+        scores: [60, 90, 45, 80, 94, 87, 40, 25, 75, 60],
+        values: { optimistic: 5200000, base: 4600000, critical: 3000000 }
+      },
+      'Rembrandt': {
+        name: 'Rembrandt – Старик в красной мантии',
+        scores: [45, 82, 50, 70, 88, 80, 55, 33, 60, 47],
+        values: { optimistic: 3100000, base: 2700000, critical: 1900000 }
+      }
+    };
+
+    const radarLabels = ['Провенанс', 'Научный анализ', 'Логистика', 'Уникальность', 'Влияние', 'Восприятие', 'Волатильность', 'Подделка', 'Экспорт', 'ESG'];
+
+    const artSelect = document.getElementById('artSelect');
+
+    let radarChart, lineChart, barChart;
+
+    function renderCharts() {
+      const selected = Array.from(artSelect.selectedOptions).map(opt => opt.value);
+
+      const radarData = {
+        labels: radarLabels,
+        datasets: selected.map(key => ({
+          label: artworks[key].name,
+          data: artworks[key].scores,
+          fill: true,
+          borderWidth: 2
+        }))
+      };
+
+      const lineData = {
+        labels: ['Критический', 'Базовый', 'Оптимистичный'],
+        datasets: selected.map(key => ({
+          label: artworks[key].name,
+          data: [artworks[key].values.critical, artworks[key].values.base, artworks[key].values.optimistic],
+          tension: 0.4,
+          fill: false,
+          borderWidth: 2
+        }))
+      };
+
+      const barData = {
+        labels: selected.map(key => artworks[key].name),
+        datasets: [{
+          label: 'Базовая стоимость (€)',
+          data: selected.map(key => artworks[key].values.base),
+          backgroundColor: 'rgba(54, 162, 235, 0.6)'
+        }]
+      };
+
+      if (radarChart) radarChart.destroy();
+      if (lineChart) lineChart.destroy();
+      if (barChart) barChart.destroy();
+
+      radarChart = new Chart(document.getElementById('radarChart'), {
+        type: 'radar',
+        data: radarData,
+        options: { scales: { r: { beginAtZero: true, max: 100 } } }
+      });
+
+      lineChart = new Chart(document.getElementById('lineChart'), {
+        type: 'line',
+        data: lineData,
+        options: { scales: { y: { beginAtZero: false } } }
+      });
+
+      barChart = new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: barData,
+        options: { scales: { y: { beginAtZero: true } } }
+      });
+    }
+
+    artSelect.addEventListener('change', renderCharts);
+    renderCharts();
+  </script>
+</body>
+</html>
