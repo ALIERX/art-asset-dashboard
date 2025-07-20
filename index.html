@@ -2,18 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Art Asset Score™</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to right, #e0eafc, #f0f4f8);
       margin: 0;
       padding: 2rem;
-      color: #111;
     }
     .container {
       max-width: 1000px;
@@ -24,20 +24,50 @@
       border-radius: 1rem;
       box-shadow: 0 0 24px rgba(0,0,0,0.1);
     }
-    section {
-      margin-bottom: 2rem;
-    }
-    select, button {
-      padding: 0.5rem;
-      font-size: 1rem;
+    h1, h2 {
+      text-align: center;
     }
     img {
       max-width: 100%;
       border-radius: 12px;
       cursor: pointer;
     }
-    h1, h2 {
+    select, button {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .tab {
+      flex: 1;
       text-align: center;
+      padding: 1rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: 0.3s;
+    }
+    .tab:hover, .tab.active {
+      border-color: #007bff;
+      font-weight: bold;
+    }
+    .tab-content {
+      display: none;
+      margin-top: 1rem;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .tab h3 {
+      margin: 0.2rem 0;
+      font-size: 1.1rem;
+    }
+    .material-icons {
+      vertical-align: middle;
+      margin-right: 0.4rem;
     }
   </style>
 </head>
@@ -45,15 +75,30 @@
 <div class="container" id="pdf-content">
   <h1>Art Asset Score™</h1>
   <select id="artSelect"></select>
-  <div id="info"></div>
-  <canvas id="radarChart"></canvas>
-  <canvas id="lineChart"></canvas>
+  <div id="artContent">
+    <h2 id="title"></h2>
+    <img id="artImage" onclick="openFullscreen(this)" />
+    <div class="tabs" id="tabHeaders"></div>
+    <div id="tabContents"></div>
+    <canvas id="radarChart"></canvas>
+    <canvas id="lineChart"></canvas>
+  </div>
   <button onclick="downloadPDF()">Download PDF</button>
 </div>
 
 <script>
 let artworks = {};
 let radarChart, lineChart;
+
+const tabData = [
+  { key: 'overview', label: 'Overview', icon: 'info' },
+  { key: 'score', label: 'Score', icon: 'star' },
+  { key: 'valuation', label: 'Valuation', icon: 'euro' },
+  { key: 'market', label: 'Market', icon: 'bar_chart' },
+  { key: 'historical', label: 'Context', icon: 'history_edu' },
+  { key: 'sources', label: 'Sources', icon: 'source' },
+  { key: 'conclusion', label: 'Conclusion', icon: 'check_circle' }
+];
 
 function fetchData() {
   fetch("opere.json")
@@ -76,21 +121,29 @@ function render(id) {
   const a = artworks[id];
   const [w, h] = a.size_cm;
   const txt = a.texts;
-  document.getElementById("info").innerHTML = `
-    <h2>${a.title}</h2>
-    <img src="${a.image}" onclick="openFullscreen(this)">
-    <section><h3>Overview</h3><p>${txt.overview}</p></section>
-    <section><h3>Score</h3><p>${txt.score}</p></section>
-    <section><h3>Valuation</h3><p>${txt.valuation}</p></section>
-    <section><h3>Market Data</h3><p>${txt.market}</p></section>
-    <section><h3>Historical Context</h3><p>${txt.historical}</p></section>
-    <section><h3>Sources</h3><p>${txt.sources}</p></section>
-    <section><h3>Conclusion</h3><p>${txt.conclusion}</p></section>
-  `;
+  document.getElementById("title").innerText = a.title;
+  document.getElementById("artImage").src = a.image;
 
+  // Render Tabs
+  const tabHeader = document.getElementById("tabHeaders");
+  const tabContents = document.getElementById("tabContents");
+  tabHeader.innerHTML = "";
+  tabContents.innerHTML = "";
+  tabData.forEach((tab, i) => {
+    const th = document.createElement("div");
+    th.className = "tab" + (i === 0 ? " active" : "");
+    th.innerHTML = `<span class="material-icons">${tab.icon}</span><h3>${tab.label}</h3>`;
+    th.onclick = () => switchTab(i);
+    tabHeader.appendChild(th);
+
+    const tc = document.createElement("div");
+    tc.className = "tab-content" + (i === 0 ? " active" : "");
+    tc.innerHTML = `<p>${txt[tab.key]}</p>`;
+    tabContents.appendChild(tc);
+  });
+
+  // Radar Chart
   if (radarChart) radarChart.destroy();
-  if (lineChart) lineChart.destroy();
-
   radarChart = new Chart(document.getElementById("radarChart"), {
     type: 'radar',
     data: {
@@ -106,6 +159,8 @@ function render(id) {
     options: { scales: { r: { beginAtZero: true, max: 100 } } }
   });
 
+  // Line Chart
+  if (lineChart) lineChart.destroy();
   lineChart = new Chart(document.getElementById("lineChart"), {
     type: 'line',
     data: {
@@ -120,6 +175,15 @@ function render(id) {
       }]
     },
     options: { scales: { y: { beginAtZero: false } } }
+  });
+}
+
+function switchTab(index) {
+  document.querySelectorAll(".tab").forEach((tab, i) => {
+    tab.classList.toggle("active", i === index);
+  });
+  document.querySelectorAll(".tab-content").forEach((cont, i) => {
+    cont.classList.toggle("active", i === index);
   });
 }
 

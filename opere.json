@@ -38,6 +38,45 @@
         "sources": "Data compiled from Artprice, Artnet, Zitelmann Catalogue, Sotheby\u2019s and Christie\u2019s archives, Google Trends.",
         "conclusion": "Final estimated value: \u20ac2,358,720. AA Rating. Sale expected within 7\u201312 months. Condition and scientific verification recommended."
       }
+    },
+    {
+      "id": "eleonora",
+      "lang": "en",
+      "title": "Rubens \u2013 Portrait of a Lady of the Court of Mantua",
+      "artist": "Peter Paul Rubens",
+      "year": "1607\u20131608",
+      "technique": "Oil on canvas",
+      "size_cm": [
+        62.2,
+        52.8
+      ],
+      "scores": [
+        95,
+        89,
+        55,
+        78,
+        84,
+        81,
+        48,
+        22,
+        70,
+        35
+      ],
+      "scenarios": [
+        1200000,
+        1980000,
+        2400000
+      ],
+      "image": "img/eleonora.jpg",
+      "texts": {
+        "overview": "Portrait of Eleonora de Medici, Duchess of Mantua, attributed to Peter Paul Rubens. Painted during Rubens\u2019 Italian period under the Gonzaga court.",
+        "score": "Certified as an original by the Corpus Rubenianum with high provenance and historical value. Score: 81.2 / 100 \u2192 Rating: AA.",
+        "valuation": "Estimated at \u20ac600/cm\u00b2 for confirmed Rubens portraits \u2192 \u20ac1,971,360. After AA multiplier (\u00d71.35): \u20ac2,661,336.",
+        "market": "Comps: Rubens portrait Sotheby\u2019s 2020 (\u20ac2.4M), strong demand for court portraits. Included in major exhibitions (Stuttgart 2022, Genoa 2023).",
+        "historical": "Painted ca. 1607\u201308. Part of Gonzaga collection, owned by King Charles I. Subject likely linked to Spanish-Habsburg fashion and mourning rituals.",
+        "sources": "Documented in Corpus Rubenianum, confirmed by Prof. Nils B\u00fcttner. Provenance traces uninterrupted chain since 17th century.",
+        "conclusion": "With full certification and excellent provenance, this work is positioned in the upper bracket of Flemish portraiture. Value: \u20ac2,661,336. Sale time: 6\u20139 months."
+      }
     }
   ]
 }
