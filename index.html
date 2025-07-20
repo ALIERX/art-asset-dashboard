@@ -1,196 +1,138 @@
+
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Art Asset Score™ – Полная оценка</title>
+  <title>Art Asset Score™</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
+      background: linear-gradient(to right, #e0eafc, #f0f4f8);
       margin: 0;
       padding: 2rem;
+      color: #111;
     }
     .container {
-      max-width: 1200px;
+      max-width: 1000px;
       margin: auto;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(10px);
       padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border-radius: 1rem;
+      box-shadow: 0 0 24px rgba(0,0,0,0.1);
     }
-    h1, h2, h3 {
-      color: #222;
+    section {
+      margin-bottom: 2rem;
     }
-    select {
-      font-size: 1rem;
+    select, button {
       padding: 0.5rem;
-      margin-bottom: 2rem;
+      font-size: 1rem;
     }
-    canvas {
+    img {
       max-width: 100%;
-      margin: 2rem 0;
+      border-radius: 12px;
+      cursor: pointer;
     }
-    .section {
-      margin-bottom: 2rem;
-    }
-    .highlight {
-      background: #e6f7ff;
-      padding: 1rem;
-      border-left: 4px solid #1890ff;
+    h1, h2 {
+      text-align: center;
     }
   </style>
 </head>
 <body>
-<div class="container">
-  <h1>🎨 Art Asset Score™ – Профессиональная оценка произведения искусства</h1>
-
-  <div class="section">
-    <h2>📘 ДАННЫЕ ОБ ЭКСПОНАТЕ</h2>
-    <p><strong>Художник:</strong> Питер Пауль Рубенс (attribuito)<br>
-      <strong>Название:</strong> «Младенец Иисус и Иоанн»<br>
-      <strong>Год:</strong> XVII век (предположительно 1615–1620)<br>
-      <strong>Техника:</strong> масло на дереве<br>
-      <strong>Размер:</strong> 65 × 84 см = 5460 см²<br>
-      <strong>Период:</strong> Фламандский барокко<br>
-      <strong>Каталог:</strong> отсутствует в Zitelmann / Mariner<br>
-      <strong>Локация:</strong> Частная коллекция / склад<br>
-      <strong>Права:</strong> уточняются
-    </p>
-  </div>
-
-  <div class="section">
-    <h2>📊 ART ASSET SCORE™ – РАДАР</h2>
-    <p><strong>Средний балл:</strong> 75.6 / 100 → ⭐⭐⭐⭐<br>
-    <strong>Рейтинг:</strong> AA</p>
-    <canvas id="radarChart"></canvas>
-  </div>
-
-  <div class="section">
-    <h2>📋 ДОПОЛНИТЕЛЬНЫЕ ИНДЕКСЫ</h2>
-    <ul>
-      <li>🧾 Провенанс: 18 / 100</li>
-      <li>🔍 Научный анализ: 76 / 100</li>
-      <li>🔄 Логистика хранения: 52 / 100</li>
-      <li>🕒 Время продажи: 7–12 мес</li>
-      <li>📊 Уникальность: 88 / 100</li>
-      <li>🌎 Влияние: 91 / 100</li>
-      <li>📊 Восприятие коллекционерами: 85 / 100</li>
-      <li>🧰 Волатильность: 59 / 100</li>
-      <li>🧾 Репутация владельца: 14 / 20</li>
-      <li>🧠 Риск подделки: 31 / 100</li>
-      <li>🌐 Экспортная пригодность: 68 / 100</li>
-      <li>♻️ ESG риски: 41 / 100</li>
-      <li>🔐 NFT / Блокчейн сертификат: отсутствует</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>🏦 ФИНАНСОВЫЙ РЕЙТИНГ</h2>
-    <p>Средняя оценка: 75.6 | Рейтинг: AA | Мультипликатор: × 1.35<br>
-    Процентиль среди схожих работ: 82-й</p>
-  </div>
-
-  <div class="section">
-    <h2>💶 ОЦЕНКА СТОИМОСТИ</h2>
-    <div class="highlight">
-      <p>Бенчмарк: 320 €/см² → 320 × 5460 = 1,747,200 €<br>
-      С учётом рейтинга (×1.35): 👉 <strong>2,358,720.00 €</strong><br>
-      ⚠️ Требуется подтверждение состояния</p>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>📈 РЫНОЧНЫЕ ДАННЫЕ</h2>
-    <ul>
-      <li>Sotheby’s (2019): «Святая семья» – 2.9 млн €</li>
-      <li>Christie’s (2020): эскиз – 1.4 млн €</li>
-      <li>CAGR: +4.7% в год</li>
-      <li>География: США / ЕС</li>
-      <li>Институции: The Met, Rubenshuis</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>📉 СЦЕНАРИИ БУДУЩЕГО</h2>
-    <canvas id="lineChart"></canvas>
-  </div>
-
-  <div class="section">
-    <h2>📜 ИСТОРИКО-КУЛЬТУРНЫЙ КОНТЕКСТ</h2>
-    <p>Работа соответствует зрелому периоду Рубенса. Возможно участие мастерской. Иконография типична для католического барокко.</p>
-  </div>
-
-  <div class="section">
-    <h2>📌 ИСТОЧНИКИ</h2>
-    <ul>
-      <li>Artprice / Artnet</li>
-      <li>Zitelmann, Sotheby’s, Christie’s архивы</li>
-      <li>Google Arts / Trends</li>
-      <li>Без блокчейн-сертификации</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>📌 ЗАКЛЮЧЕНИЕ</h2>
-    <p class="highlight">
-      💰 Оценка: 2,358,720.00 €<br>
-      🎖️ Рейтинг: AA<br>
-      📊 Итоговый балл: 75.6 / 100<br>
-      🕒 Продажа: 7–12 месяцев<br>
-      ⚠️ Требуется отчёт о состоянии и экспертиза
-    </p>
-  </div>
+<div class="container" id="pdf-content">
+  <h1>Art Asset Score™</h1>
+  <select id="artSelect"></select>
+  <div id="info"></div>
+  <canvas id="radarChart"></canvas>
+  <canvas id="lineChart"></canvas>
+  <button onclick="downloadPDF()">Download PDF</button>
 </div>
 
 <script>
-  const radarCtx = document.getElementById('radarChart');
-  new Chart(radarCtx, {
+let artworks = {};
+let radarChart, lineChart;
+
+function fetchData() {
+  fetch("opere.json")
+    .then(res => res.json())
+    .then(data => {
+      const select = document.getElementById("artSelect");
+      data.opere.forEach(op => {
+        artworks[op.id] = op;
+        const opt = document.createElement("option");
+        opt.value = op.id;
+        opt.textContent = op.title;
+        select.appendChild(opt);
+      });
+      select.onchange = () => render(select.value);
+      render(data.opere[0].id);
+    });
+}
+
+function render(id) {
+  const a = artworks[id];
+  const [w, h] = a.size_cm;
+  const txt = a.texts;
+  document.getElementById("info").innerHTML = `
+    <h2>${a.title}</h2>
+    <img src="${a.image}" onclick="openFullscreen(this)">
+    <section><h3>Overview</h3><p>${txt.overview}</p></section>
+    <section><h3>Score</h3><p>${txt.score}</p></section>
+    <section><h3>Valuation</h3><p>${txt.valuation}</p></section>
+    <section><h3>Market Data</h3><p>${txt.market}</p></section>
+    <section><h3>Historical Context</h3><p>${txt.historical}</p></section>
+    <section><h3>Sources</h3><p>${txt.sources}</p></section>
+    <section><h3>Conclusion</h3><p>${txt.conclusion}</p></section>
+  `;
+
+  if (radarChart) radarChart.destroy();
+  if (lineChart) lineChart.destroy();
+
+  radarChart = new Chart(document.getElementById("radarChart"), {
     type: 'radar',
     data: {
-      labels: ['Провенанс', 'Научный анализ', 'Логистика', 'Уникальность', 'Влияние', 'Восприятие', 'Волатильность', 'Подделка', 'Экспорт', 'ESG'],
+      labels: ['Provenance', 'Scientific', 'Logistics', 'Uniqueness', 'Influence', 'Collectors', 'Volatility', 'Forgery', 'Export', 'ESG'],
       datasets: [{
-        label: 'Rubens',
-        data: [18, 76, 52, 88, 91, 85, 59, 31, 68, 41],
-        backgroundColor: 'rgba(33, 150, 243, 0.2)',
-        borderColor: 'rgba(33, 150, 243, 1)',
+        label: 'Score',
+        data: a.scores,
+        backgroundColor: 'rgba(0,123,255,0.2)',
+        borderColor: 'rgba(0,123,255,1)',
         borderWidth: 2
       }]
     },
-    options: {
-      scales: {
-        r: {
-          beginAtZero: true,
-          max: 100
-        }
-      }
-    }
+    options: { scales: { r: { beginAtZero: true, max: 100 } } }
   });
 
-  const lineCtx = document.getElementById('lineChart');
-  new Chart(lineCtx, {
+  lineChart = new Chart(document.getElementById("lineChart"), {
     type: 'line',
     data: {
-      labels: ['Критический', 'Базовый', 'Оптимистичный'],
+      labels: ['Critical', 'Baseline', 'Optimistic'],
       datasets: [{
-        label: 'Сценарии стоимости (€)',
-        data: [1200000, 2358720, 2700000],
-        borderColor: 'rgba(255, 99, 132, 1)',
-        fill: false,
-        tension: 0.3
+        label: 'Value (€)',
+        data: a.scenarios,
+        borderColor: 'rgba(255,99,132,1)',
+        backgroundColor: 'rgba(255,99,132,0.2)',
+        fill: true,
+        tension: 0.4
       }]
     },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: false
-        }
-      }
-    }
+    options: { scales: { y: { beginAtZero: false } } }
   });
+}
+
+function openFullscreen(img) {
+  const w = window.open("");
+  w.document.write('<img src="' + img.src + '" style="width:100%">');
+}
+
+function downloadPDF() {
+  html2pdf().from(document.getElementById("pdf-content")).save("art_asset_score.pdf");
+}
+
+fetchData();
 </script>
 </body>
 </html>

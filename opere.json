@@ -1,0 +1,43 @@
+{
+  "opere": [
+    {
+      "id": "rubens",
+      "lang": "en",
+      "title": "Rubens \u2013 Infant Jesus and John",
+      "artist": "Peter Paul Rubens (attributed)",
+      "year": "1615\u20131620",
+      "technique": "Oil on wood",
+      "size_cm": [
+        65,
+        84
+      ],
+      "scores": [
+        18,
+        76,
+        52,
+        88,
+        91,
+        85,
+        59,
+        31,
+        68,
+        41
+      ],
+      "scenarios": [
+        1200000,
+        2358720,
+        2700000
+      ],
+      "image": "img/rubens.jpg",
+      "texts": {
+        "overview": "This painting is attributed to Peter Paul Rubens, depicting the infant Jesus and John the Baptist. The work is consistent with Rubens' mature period and follows iconographic models of Flemish Baroque religious art.",
+        "score": "The overall Art Asset Score\u2122 is 75.6/100, corresponding to a rating of AA. The uniqueness and cultural influence scores are particularly high, reinforcing its potential institutional value.",
+        "valuation": "With a benchmark of \u20ac320/cm\u00b2, and adjusted for the AA rating multiplier (\u00d71.35), the estimated value is \u20ac2,358,720. Requires confirmation via condition report.",
+        "market": "Relevant comparisons: Sotheby\u2019s (2019): 'Holy Family' \u2013 \u20ac2.9M, Christie\u2019s (2020): Rubens sketch \u2013 \u20ac1.4M. Annual growth of Flemish Baroque market: +4.7%. High interest from US and EU institutions.",
+        "historical": "Rubens is one of the foundational artists of 17th-century European painting. The subject matter aligns with Catholic themes, suggesting workshop participation under Rubens' supervision.",
+        "sources": "Data compiled from Artprice, Artnet, Zitelmann Catalogue, Sotheby\u2019s and Christie\u2019s archives, Google Trends.",
+        "conclusion": "Final estimated value: \u20ac2,358,720. AA Rating. Sale expected within 7\u201312 months. Condition and scientific verification recommended."
+      }
+    }
+  ]
+}
